@@ -1,0 +1,3 @@
+/home/denisubuntu/Desktop/IEP/Assigment1_IEP/build/CMakeFiles/rebuild_cache.dir
+/home/denisubuntu/Desktop/IEP/Assigment1_IEP/build/CMakeFiles/edit_cache.dir
+/home/denisubuntu/Desktop/IEP/Assigment1_IEP/build/CMakeFiles/printer.dir
