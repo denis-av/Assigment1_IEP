@@ -4,34 +4,38 @@ class SimplePrinter{
     protected:
         int capacityToPrintPerMinute;
         bool scanner;
-        double colorInkPercentage, blackInkPercentage, energyConsumedPerHour, colorTakePerPage = 0.4, blackTakePerPage = 0.3;
+        double colorInkPercentage, blackInkPercentage, energyConsumedPerHour, colorTakePerPage , blackTakePerPage ;
 
-    public:
-        SimplePrinter() {
+    public:/*
+        SimplePrinter()  {
             colorInkPercentage = 50;
             blackInkPercentage = 50;
             capacityToPrintPerMinute = 15;
             scanner = false;
             energyConsumedPerHour = 75.5;
-        }
+        }*/
 
         //Parameterized Constructors
-        SimplePrinter(double colorInkPercentage, double blackInkPercentage, int capacityToPrintPerMinute ,bool scanner , double energyConsumedPerHour ) {
-            this->colorInkPercentage = colorInkPercentage;
-            this->blackInkPercentage = blackInkPercentage;
-            this->capacityToPrintPerMinute = capacityToPrintPerMinute;
-            this->scanner = scanner;
-            this->energyConsumedPerHour = energyConsumedPerHour;
-        }
+        SimplePrinter(double colorInkPercentage = 50, double blackInkPercentage = 50, int capacityToPrintPerMinute = 15,bool scanner = false , double energyConsumedPerHour = 75.5, double colorTakePerPage = 0.4, double blackTakePerPage = 0.3) :
+            colorInkPercentage(colorInkPercentage),
+            blackInkPercentage(blackInkPercentage),
+            capacityToPrintPerMinute(capacityToPrintPerMinute),
+            scanner(scanner),
+            energyConsumedPerHour(energyConsumedPerHour),
+            colorTakePerPage(colorTakePerPage),
+            blackTakePerPage(blackTakePerPage)
+         {}
 
         //Copy Constructor
-        SimplePrinter(const SimplePrinter& printerOne){
-            colorInkPercentage = printerOne.colorInkPercentage;
-            blackInkPercentage = printerOne.blackInkPercentage;
-            capacityToPrintPerMinute = printerOne.capacityToPrintPerMinute;
-            scanner = printerOne.scanner;
-            energyConsumedPerHour = printerOne.energyConsumedPerHour;
-        }
+        SimplePrinter(const SimplePrinter& printerOne) :
+            colorInkPercentage(printerOne.colorInkPercentage),
+            blackInkPercentage(printerOne.blackInkPercentage),
+            capacityToPrintPerMinute(printerOne.capacityToPrintPerMinute),
+            scanner(printerOne.scanner),
+            energyConsumedPerHour(printerOne.energyConsumedPerHour),
+            colorTakePerPage(printerOne.colorTakePerPage),
+            blackTakePerPage(printerOne.blackTakePerPage)
+        {}
 
 
         SimplePrinter& operator = (const SimplePrinter &simpl){
@@ -51,6 +55,8 @@ class SimplePrinter{
             if(scanner == true) std::cout<< "true" << std::endl;
             else std::cout<< "false" << std::endl;
             std::cout << "Energy consumed per hour: "<< energyConsumedPerHour <<std::endl;
+            std::cout << "Color ink take per page: "<< colorTakePerPage << "%" << std::endl;
+            std::cout << "Energy consumed per hour: "<< blackTakePerPage << "%" << std::endl;
         }
 
         void addScanner(){
@@ -94,16 +100,15 @@ class AdvancedPrinter: public SimplePrinter{
             bool wirless;
     public:
         //Parameterized Constructors
-        AdvancedPrinter(double colorInkPercentage = 100, double blackInkPercentage = 100, int capacityToPrintPerMinute = 50,bool scanner = true, double energyConsumedPerHour = 27.45, bool wirless = true) : SimplePrinter(colorInkPercentage,blackInkPercentage,capacityToPrintPerMinute,scanner,energyConsumedPerHour)
-        {
-            this->wirless = wirless;
-            colorTakePerPage = 0.3;
-            blackTakePerPage = 0.2;
-        }
+        AdvancedPrinter(double colorInkPercentage = 100, double blackInkPercentage = 100, int capacityToPrintPerMinute = 50,bool scanner = true, double energyConsumedPerHour = 27.45, bool wirless = true, double colorTakePerPage = 0.3, double blackTakePerPage = 0.2) : 
+        SimplePrinter(colorInkPercentage,blackInkPercentage,capacityToPrintPerMinute,scanner,energyConsumedPerHour,colorTakePerPage,blackTakePerPage),
+        wirless(wirless)
+        {}
 
-        AdvancedPrinter(const AdvancedPrinter &adv):SimplePrinter(adv){
-            wirless = adv.wirless;
-        }
+        AdvancedPrinter(const AdvancedPrinter &adv):
+        SimplePrinter(adv),
+        wirless(wirless)
+        {}
 
         void printDetails(){
             SimplePrinter::printDetails();
@@ -127,14 +132,13 @@ class SuperAdvancedPrinter : public SimplePrinter{
         SuperAdvancedPrinter& operator=(const SuperAdvancedPrinter&);
 
     public:
-        SuperAdvancedPrinter(double colorInkPercentage = 100, double blackInkPercentage = 100, int capacityToPrintPerMinute = 75, double energyConsumedPerHour = 12.5, int numberHoles = 2, int length = 45, int width = 30) : SimplePrinter(colorInkPercentage,blackInkPercentage,capacityToPrintPerMinute,true,energyConsumedPerHour){
-            this->numberHoles = numberHoles;
-            uniqueID = rand() % 9999;
-            colorTakePerPage = 0.2;
-            blackTakePerPage = 0.1;
-            this->length = length;
-            this->width = width;
-        }
+        SuperAdvancedPrinter(double colorInkPercentage = 100, double blackInkPercentage = 100, int capacityToPrintPerMinute = 75, double energyConsumedPerHour = 12.5, bool scanner = true, int numberHoles = 2, int length = 45, int width = 30,double colorTakePerPage = 0.2, double blackTakePerPage = 0.1) :
+        SimplePrinter(colorInkPercentage,blackInkPercentage,capacityToPrintPerMinute,scanner,energyConsumedPerHour, colorTakePerPage, blackTakePerPage),
+        numberHoles(numberHoles),
+        length(length),
+        width(width),
+        uniqueID(rand() % 9999)
+        {}
 
 
         void printDetails(){
@@ -186,5 +190,5 @@ int main(){
     //SuperAdvancedPrinter s9;
     //s9=s8;
     //SuperAdvancedPrinter s9(s8); - error
-    std::cout << s8.calculateNoPagesToPrintWithColorInk() << " files could be printed using blank ink by printer 8" << std::endl;
+    std::cout << s8.calculateNoPagesToPrintWithColorInk() << " files could be printed using blank ink by Printer 8" << std::endl;
 }
